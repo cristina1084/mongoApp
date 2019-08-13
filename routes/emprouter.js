@@ -18,7 +18,11 @@ router.get("/new",(req,res)=>{
 })
 
 router.get("/view",(req,res)=>{
-    res.render("view");
+    emp.find({},(err,result)=>{
+        if(err) throw err;
+        else 
+            res.render("view", {empData: result});
+    });
 })
 
 router.post("/add",(req,res)=>{

@@ -7,6 +7,21 @@
     <title>View Employee</title>
 </head>
 <body>
-    
+    <table border="2">
+        <thead>
+            <th>Employee ID</th>
+            <th>Name</th>
+            <th>Salary</th>
+        </thead>
+        <tbody>
+            <% for(var i=0; i<empData.length; i++){ %>
+                <tr>
+                    <td><%= empData[i].eid %> </td>
+                    <td><%= empData[i].name %> </td>
+                    <td><%= empData[i].salary %> </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
 </body>
 </html>
