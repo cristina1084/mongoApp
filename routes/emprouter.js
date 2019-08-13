@@ -1,10 +1,12 @@
 var exp = require('express');
 const router = exp.Router();    
 var mongo = require('mongoose')
-
+var bodyparser = require('body-parser');
 var url = "mongodb://localhost/sdb"
 
 var emp = require('../model/employee');
+
+router.use(bodyparser.urlencoded({extended:true}));
 
 mongo.connect(url,(err)=>{
     if(err) throw err;
@@ -21,11 +23,13 @@ router.get("/view",(req,res)=>{
 
 router.post("/add",(req,res)=>{
     var e1 = new emp();
-    e1.eid = "E001";
-    e1.name = "Cristina";
-    e1.salary = 20000;
-    e1.save();        //insert data
-    res.send("Employee added");
+    e1.eid = req.body.eid;
+    e1.name = req.body.ename;
+    e1.salary = req.body.sal;
+    e1.save((err)=>{
+        if(err) throw err;
+        else res.send("Data Added")
+    });        //insert data
 })
 
 module.exports = router;
