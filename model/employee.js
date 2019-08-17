@@ -5,7 +5,8 @@ var schema = mongo.Schema;
 var empSchema = new schema({
     eid:{type:String, required:true},
     name:String,
-    salary:Number
+    salary:Number,
+    photo:String
 })
 
 var empModel = mongo.model("employee", empSchema); //add third parameter to forcefully create a collection with the name specified
