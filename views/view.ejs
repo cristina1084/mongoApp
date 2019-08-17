@@ -12,13 +12,15 @@
             <th>Employee ID</th>
             <th>Name</th>
             <th>Salary</th>
+            <th>Filename</th>
         </thead>
         <tbody>
             <% for(var i=0; i<empData.length; i++){ %>
                 <tr>
                     <td><%= empData[i].eid %> </td>
                     <td><%= empData[i].name %> </td>
-                    <td><%= empData[i].salary %> </td>
+                    <td><%= empData[i].salary %></td>
+                    <td><a href=/emp/<%= empData[i].photo %>> <%= empData[i].photo %> </a></td>
                 </tr>
             <% } %>
         </tbody>

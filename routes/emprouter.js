@@ -1,5 +1,6 @@
 var exp = require('express');
-const router = exp.Router();    
+const router = exp.Router();   
+var path = require('path') ;
 var mongo = require('mongoose')
 var bodyparser = require('body-parser');
 var url = "mongodb://localhost/sdb"
@@ -7,8 +8,19 @@ var url = "mongodb://localhost/sdb"
 var emp = require('../model/employee');
 
 var multer = require('multer'); //module to upload files
-var upload = multer({dest:'uploads/'}); //destination folder
-var type = upload.single('file1'); //mention the file upload control name ... single mentions only one is uploading
+
+var storage =   multer.diskStorage({  
+    destination: (req, file, callback)=>{  
+      callback(null, './public/images');  
+    },  
+    filename: (req, file, callback)=>{  
+      callback(null, file.originalname);  
+    }  
+  });  
+  
+var upload = multer({ storage : storage}).single('file1');  
+
+router.use(exp.static(path.join(__dirname+"/public")));
 
 router.use(bodyparser.urlencoded({extended:true}));
 
@@ -29,18 +41,25 @@ router.get("/view",(req,res)=>{
     });
 })
 
-router.post("/add", type, (req,res)=>{
+router.post("/add", upload, (req,res)=>{
     var e1 = new emp();
     e1.eid = req.body.eid;
     e1.name = req.body.ename;
     e1.salary = req.body.sal;
-    e1.photo = req.body.file1;
+    e1.photo = req.file.filename;
     
     e1.save((err)=>{
         if(err) throw err;
         else res.send("Data Added")
     });        //insert data
 })
+
+router.get("/:id", (req,res)=>{
+    var file = req.params.id;
+    var fileLocation = path.join('./public/images',file);
+    res.download(fileLocation,file)
+})
+
 
 module.exports = router;
 
