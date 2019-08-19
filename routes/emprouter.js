@@ -67,6 +67,19 @@ router.get("/edit/:eid",(req,res)=>{
     })
 })
 
+router.get("/delete/:eid",(req,res)=>{
+    emp.deleteOne({eid:req.params.eid},(err,result)=>{
+        if (err) throw err;
+        else {
+            emp.find({},(err,result)=>{
+                if(err) throw err;
+                else 
+                    res.render("view", {empData: result});
+            });
+        }
+    })
+})
+
 router.post("/update",(req,res)=>{
     emp.updateOne({eid:req.body.eid}, {$set:{name:req.body.ename, salary:req.body.sal}}, (err,result)=>{
         if (err) throw err;
