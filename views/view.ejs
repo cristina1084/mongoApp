@@ -9,18 +9,26 @@
 <body>
     <table border="2">
         <thead>
+            <th>Photo</th>
             <th>Employee ID</th>
             <th>Name</th>
             <th>Salary</th>
-            <th>Filename</th>
+            <th>Edit</th>
+            <th>Delete</th>
         </thead>
         <tbody>
             <% for(var i=0; i<empData.length; i++){ %>
                 <tr>
+                    <td>
+                        <a href=/emp/<%= empData[i].photo %>>
+                            <img src="/images/<%= empData[i].photo %>" alt="" width="42" height="42">
+                        </a>
+                    </td>
                     <td><%= empData[i].eid %> </td>
                     <td><%= empData[i].name %> </td>
                     <td><%= empData[i].salary %></td>
-                    <td><a href=/emp/<%= empData[i].photo %>> <%= empData[i].photo %> </a></td>
+                    <td><a href=/emp/edit/<%= empData[i].eid %>>Edit</a></td>
+                    <td><a href="">Delete</a></td>
                 </tr>
             <% } %>
         </tbody>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>New Employee</title>
+</head>
+<body>
+    <form action="/emp/update" method="post" >
+        Employee ID: <input type="text" name="eid" id="" value=<%= emp[0].eid %> readonly > <br>
+        Employee Name: <input type="text" name="ename" id="" value=<%= emp[0].name %>> <br>
+        Salary: <input type="number" name="sal" id="" value=<%= emp[0].salary %>><br>
+        <input type="submit" value="Update">
+    </form>
+</body>
+</html>
