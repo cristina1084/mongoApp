@@ -33,7 +33,7 @@ router.get("/new",(req,res)=>{
     res.render("new");
 })
 
-router.get("/view",(req,res)=>{
+router.get("/view",(req,res)=>{ //read data
     emp.find({},(err,result)=>{
         if(err) throw err;
         else 
@@ -41,7 +41,7 @@ router.get("/view",(req,res)=>{
     });
 })
 
-router.post("/add", upload, (req,res)=>{
+router.post("/add", upload, (req,res)=>{ //insert data
     var e1 = new emp();
     e1.eid = req.body.eid;
     e1.name = req.body.ename;
@@ -51,7 +51,7 @@ router.post("/add", upload, (req,res)=>{
     e1.save((err)=>{
         if(err) throw err;
         else res.send("Data Added")
-    });        //insert data
+    });        
 })
 
 router.get("/:id", (req,res)=>{
@@ -60,14 +60,14 @@ router.get("/:id", (req,res)=>{
     res.download(fileLocation,file)
 })
 
-router.get("/edit/:eid",(req,res)=>{
+router.get("/edit/:eid",(req,res)=>{  //edit data
     emp.find({eid:req.params.eid},(err,result)=>{
         if(err) throw err;
         else res.render("edit",{emp:result})
     })
 })
 
-router.get("/delete/:eid",(req,res)=>{
+router.get("/delete/:eid",(req,res)=>{ //delete data
     emp.deleteOne({eid:req.params.eid},(err,result)=>{
         if (err) throw err;
         else {
