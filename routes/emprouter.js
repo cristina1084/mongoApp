@@ -41,6 +41,16 @@ router.get("/view",(req,res)=>{ //read data
     });
 })
 
+router.get("/search",(req,res)=>{
+    res.render("search",{empData:0})
+})
+
+router.post("/searchemp",(req,res)=>{
+    emp.find({name:/req.body.semp/i},(err,result)=>{
+        if (err) throw err;
+        else res.render("search", {empData:result})
+    })
+})
 router.post("/add", upload, (req,res)=>{ //insert data
     var e1 = new emp();
     e1.eid = req.body.eid;
